@@ -451,14 +451,6 @@ export default function StudentDashboard() {
                 <ArrowRight size={16} />
               </a>
 
-              <a href="/dashboard/nutrition">
-                <span className="quick-icon">
-                  <Utensils size={18} />
-                </span>
-                AI Nutrition Assistant
-                <ArrowRight size={16} />
-              </a>
-
               <a href="/">
                 <span className="quick-icon">
                   <Heart size={18} />
