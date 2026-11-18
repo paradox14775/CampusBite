@@ -226,33 +226,17 @@ export default function Home() {
 
   useEffect(() => {
     const supabase = createClient();
-    let mounted = true;
 
-    async function loadUser() {
-      const { data, error } = await supabase.auth.getUser();
-
-      if (!mounted) return;
-
-      if (error) {
-        console.error("Unable to load signed-in user:", error.message);
-      }
-
-      setUser(data.user);
-      setAuthLoading(false);
-    }
-
-    loadUser();
-
+    // Supabase emits INITIAL_SESSION after restoring the browser session.
+    // A visitor who is not signed in receives a null session; that is normal.
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!mounted) return;
       setUser(session?.user ?? null);
       setAuthLoading(false);
     });
 
     return () => {
-      mounted = false;
       subscription.unsubscribe();
     };
   }, []);
